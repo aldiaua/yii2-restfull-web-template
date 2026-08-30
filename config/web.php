@@ -53,15 +53,23 @@ $config = [
         
         'urlManager' => [
             'enablePrettyUrl' => true,
-            'enableStrictParsing' => true,
+            'enableStrictParsing' => false, // Ubah ke false agar Gii/Debug/Web berfungsi
             'showScriptName' => false,
             'rules' => [
-                // Routing eksplisit untuk /api/products
-                'GET api/products'                  => 'product/index',
-                'POST api/products'                 => 'product/create',
-                'GET api/products/<id:\d+>'         => 'product/view',
-                'PUT,PATCH api/products/<id:\d+>'   => 'product/update',
-                'DELETE api/products/<id:\d+>'      => 'product/delete',
+                // ==== BEST PRACTICE UNTUK REST API ====
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'product', // Controller target
+                    'prefix' => 'api/v1',         // Otomatis bikin /api/products
+                    'pluralize' => true,       // Otomatis bikin jadi 'products' (jamak)
+                ],
+                
+                // Jika nanti ada API baru, tinggal tambahkan blok di bawah ini
+                // [
+                //     'class' => 'yii\rest\UrlRule',
+                //     'controller' => 'category',
+                //     'prefix' => 'api',
+                // ],
             ],
         ],
 
