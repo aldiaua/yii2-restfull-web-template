@@ -1,0 +1,6 @@
+domains:
+  - restfull
+php_version: "8.5"
+secured: true
+services:
+  - postgres
